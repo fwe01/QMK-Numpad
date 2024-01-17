@@ -55,13 +55,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case VIM_REGISTER_C:
             if (record->event.pressed) {
-                SEND_STRING("\e\"c");
+                SEND_STRING("\"c");
             } else {
             }
             break;
         case VIM_REGISTER_D:
             if (record->event.pressed) {
-                SEND_STRING("\e\"d");
+                SEND_STRING("\"d");
+            } else {
+            }
+            break;
+        case VIM_REGISTER_E:
+            if (record->event.pressed) {
+                SEND_STRING("\"e");
+            } else {
+            }
+            break;
+        case VIM_REGISTER_F:
+            if (record->event.pressed) {
+                SEND_STRING("\"f");
             } else {
             }
             break;
