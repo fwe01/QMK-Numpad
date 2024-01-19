@@ -19,7 +19,7 @@ enum custom_keycodes {
 
 void keyboard_pre_init_user(void) {
     setPinOutput(B0);  // initialize B0 for LED
-    // setPinOutput(D5);  // initialize D5 for LED
+    setPinOutput(D5);  // initialize D5 for LED
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -63,14 +63,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             } else {
             }
             break;
-
         case VIM_START_RECORD_A:
             if (record->event.pressed) {
                 SEND_STRING("\eqa");
             } else {
             }
             break;
-
         case VIM_PLAY_RECORD_A:
             if (record->event.pressed) {
                 SEND_STRING("\e@a");
