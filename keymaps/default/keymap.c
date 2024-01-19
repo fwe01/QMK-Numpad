@@ -17,6 +17,44 @@ enum custom_keycodes {
     VIM_REGISTER_F,
 };
 
+void keyboard_pre_init_user(void) {
+    setPinOutput(B0);  // initialize B0 for LED
+    // setPinOutput(D5);  // initialize D5 for LED
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    switch (get_highest_layer(state)) {
+        case NUMPAD_LAYER:
+            writePinHigh(B0);
+            // writePinHigh(D5);
+            break;
+        case VIM_LAYER:
+            writePinLow(B0);
+            // writePinHigh(D5);
+            break;
+        default:
+            writePinLow(B0);
+            // writePinLow(D5);
+            break;
+    }
+    return state;
+}
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        // writePin sets the pin high for 1 and low for 0.
+        // In this example the pins are inverted, setting
+        // it low/0 turns it on, and high/1 turns the LED off.
+        // This behavior depends on whether the LED is between the pin
+        // and VCC or the pin and GND.
+
+        // Numpad enabled if led is off
+        writePin(D5, led_state.num_lock);
+    }
+    return res;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case VIM_END_RECORD:
